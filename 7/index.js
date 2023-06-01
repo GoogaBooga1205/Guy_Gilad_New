@@ -18,7 +18,7 @@ app.get('/page3', (req, res)=>{
     res.sendFile(path.join(__dirname, "views/page3.html"));
 });
 
-app.get('/page4',(req,res)=>{
+app.get('/',(req,res)=>{
     console.log('this is the query:',req.query);
     res.sendFile(path.join(__dirname, "views/page4.html"));
 });
