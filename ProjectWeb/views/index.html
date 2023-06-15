@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Nutrition and Gym Finder</title>
   <link rel="stylesheet" type="text/css" href="../static/style.css">
 </head>
+
 <body>
   <nav>
     <ul>
@@ -12,10 +14,15 @@
       <li><a href="indexsignup.html">Sign-Up</a></li>
       <li><a href="indexlogin.html">Log-In</a></li>
     </ul>
-  </nav>    
+  </nav>
   <div class="container">
-    <div class="row1all"><h1>B i s t   F i t</h1></div>
-    <div class="row2all"><h2>Lets Start!</h2></div>
+    <div class="row1all">
+      <h1>B i s t F i t</h1>
+    </div>
+
+    <div class="row2all">
+      <h2>Lets Start!</h2>
+    </div>
 
     <div class="row3left">
       <label for="Gender">Gender:</label>
@@ -24,6 +31,7 @@
         <option value="female">Female</option>
       </select>
     </div>
+
     <div class="row3right">
       <label for="height">Height (cm):</label>
       <input type="number" id="height" name="height">
@@ -47,17 +55,18 @@
         <option value="active">Active</option>
       </select>
     </div>
+
     <div class="row5right">
-      <label for="address">Address:</label>
-      <input type="text" id="address" name="address" autocomplete="off">
-      <div id="addressSuggestions" class="suggestions"></div>
+      <label for="address"></label>
+      <button type="submit" id="location">Click for Current Location</button>
     </div>
 
     <div class="row6all">
       <label for="goal">Whats Your Goal?</label>
     </div>
-      <div class="row7all">
-      <select id="goal" name="goal" >
+
+    <div class="row7all">
+      <select id="goal" name="goal">
         <option value="toning">Toning</option>
         <option value="mass">Gaining Mass</option>
       </select>
@@ -67,9 +76,11 @@
       <button type="submit" id="submitBtn">Recommend me!</button>
     </div>
   </div>
- 
+
   <div class="middle">
-    <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZmYwNGNiOGJkNzFlMmU1ZDU0NjlhYjgyZmJiMDkwNWU5MzEwODI1NiZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PXM/J0ud3hmWcZAjPm4cwG/giphy.gif" width="200" height="200" alt="Animated GIF">
+    <img
+      src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZmYwNGNiOGJkNzFlMmU1ZDU0NjlhYjgyZmJiMDkwNWU5MzEwODI1NiZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PXM/J0ud3hmWcZAjPm4cwG/giphy.gif"
+      width="200" height="200" alt="Animated GIF">
   </div>
 
   <div id="popup" class="popup">
@@ -77,9 +88,9 @@
       <span class="close-btn">&times;</span>
       <p>Missing Or Invalid Data, Try Refilling The Form</p>
     </div>
-  </div>  
+  </div>
   <script src="../static/script.js"></script>
 
 </body>
-</html>
 
+</html>
