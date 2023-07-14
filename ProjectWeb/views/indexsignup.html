@@ -3,14 +3,16 @@
 
 <head>
   <title>Sign Up</title>
-  <link rel="stylesheet" type="text/css" href="../static/style3.css">
+  <link rel="stylesheet" type="text/css" href="/style3.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 </head>
 
 <body>
   <nav>
     <ul>
-      <li><a href="indexsignup.html">Sign-Up</a></li>
-      <li><a href="indexlogin.html">Log-In</a></li>
+      <li><a href="/signup">Sign-Up</a></li>
+      <li><a href="/login">Log-In</a></li>
     </ul>
   </nav>
 
@@ -22,11 +24,11 @@
     <div id="header">
       <h2>Sign Up</h2>
     </div>
-    <form>
+    <form action="/signup" method="POST">
 
       <div id="row2" class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
+        <label for="nameUser">Name:</label>
+        <input type="text" id="nameUser" name="nameUser" required>
       </div>
 
       <div id="row3" class="form-group">
@@ -51,7 +53,7 @@
     </form>
 
     <div id="row6">
-      <p>Already have an account? <a href="../views/indexlogin.html">Login</a></p>
+      <p>Already have an account? <a href="/login">Login</a></p>
     </div>
   </div>
 
@@ -68,7 +70,7 @@
     </div>
 
   </div>
-  <script src="../static/script2.js"></script>
+  <script src="/script2.js"></script>
 </body>
 
 </html>

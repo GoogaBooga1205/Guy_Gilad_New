@@ -2,6 +2,33 @@ const path = require('path');
 const sql = require('./DB');
 const cookie = require('cookie-parser');
 
+const createTable = (req, res) => {
+    const Q1 = 'CREATE TABLE IF NOT EXISTS `TableA` (id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, email varchar(255) NOT NULL, name varchar(255) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8';
+    sql.query(Q1, (err, mysqlres) => {
+        if (err) {
+            console.log(err);
+            res.status(400).send(err);
+            return;
+        }
+        res.send("hi" + mysqlres);
+        console.log("found table");
+        return;
+    })
+};
+
+const dropTable = (req, res) => {
+    const Q2 = 'DROP TABLE `TableA`;';
+    sql.query(Q2, (err, mysqlres) => {
+        if (err) {
+            console.log(err);
+            res.status(400).send("cannot find users");
+            return;
+        }
+        res.send("table dropped");
+        console.log("table dropped");
+        return;
+    })
+};
 
 const createNewUser = (req, res) => {
     //res.send(req.query);
@@ -13,8 +40,8 @@ const createNewUser = (req, res) => {
         name: req.query.UserName
     };
     // run insert query
-    const Q1 = "INSERT INTO SignUps SET ?";
-    sql.query(Q1, NewSignUp, (err, mysqlres) => {
+    const Q4 = "INSERT INTO SignUps SET ?";
+    sql.query(Q4, NewSignUp, (err, mysqlres) => {
         if (err) {
             console.log(err);
             res.send("something went wrong");
@@ -67,32 +94,8 @@ const selectAllUsers = (req, res) => {
     })
 };
 
-const createTable = (req, res) => {
-    const Q4 = 'CREATE TABLE IF NOT EXISTS `customersAA` (id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, email varchar(255) NOT NULL, name varchar(255) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8';
-    sql.query(Q4, (err, mysqlres) => {
-        if (err) {
-            console.log(err);
-            res.status(400).send("cannot find users");
-            return;
-        }
-        res.send(mysqlres);
-        console.log("found table");
-        return;
-    })
-};
 
-const dropTable = (req, res) => {
-    const Q5 = 'DROP TABLE `customersAA`;';
-    sql.query(Q5, (err, mysqlres) => {
-        if (err) {
-            console.log(err);
-            res.status(400).send("cannot find users");
-            return;
-        }
-        res.send("table dropped");
-        console.log("table dropped");
-        return;
-    })
-};
+
+
 
 module.exports = { createNewUser, searchUser, selectAllUsers, createTable, dropTable }

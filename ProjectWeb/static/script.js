@@ -1,29 +1,49 @@
+const express = require('express');
+const app = express();
+const path = require('path');
 var popup = document.getElementById('popup');
 var closeBtn = document.querySelector('.close-btn');
 var address = document.getElementById('location');
+const sql = require('./DB/DB');
+const CRUD = require('./DB/CRUD')
 
-// Function to get the current location
-function getLocation() {
-  navigator.geolocation.getCurrentPosition(showPosition);
+app.set('views', path.join(__dirname, "views"));
+
+function GetLocation() {
+  if (navigator.geolocation) {
+    console.log("in get location");
+    navigator.geolocation.getCurrentPosition(showPosition);
+  }
 }
 
-// Function to display the current position
+
 function showPosition(position) {
-  var latitude = position.coords.latitude;
-  var longitude = position.coords.longitude;
-  localStorage.setItem('latitude', latitude);
-  localStorage.setItem('longitude', longitude);
-  console.log('latitude', latitude);
-  console.log('longitude', longitude);
+
+  console.log(position.coords.latitude + position.coords.longitude);
 }
 
-//  event listener to the button
-var locationButton = document.getElementById('location');
-if (locationButton) {
-  locationButton.addEventListener('click', function () {
-    getLocation();
-  });
-}
+// // Function to get the current location
+// function getLocation() {
+//   navigator.geolocation.getCurrentPosition(showPosition);
+// }
+
+// // Function to display the current position
+// function showPosition(position) {
+//   var latitude = position.coords.latitude;
+//   var longitude = position.coords.longitude;
+//   localStorage.setItem('latitude', latitude);
+//   localStorage.setItem('longitude', longitude);
+//   console.log('latitude', latitude);
+//   console.log('longitude', longitude);
+// }
+
+// //  event listener to the button
+// var locationButton = document.getElementById('location');
+// if (locationButton) {
+//   locationButton.addEventListener('click', function () {
+//     getLocation();
+//   });
+// }
 
 // Check if the submit button exists on the current page (becuse the script is for 2 paegs)
 var submitBtn = document.getElementById('submitBtn');
@@ -55,7 +75,7 @@ if (submitBtn) {
         popup.style.display = 'none';
       });
     } else {
-      window.location.href = 'index2.html';
+      res.sendFile(path.join(__dirname, 'views', 'index.html'));
     }
   });
 }
