@@ -51,7 +51,7 @@ const createTable = (req, res) => {
 };
 
 const createGymTable = (req, res) => {
-    const Q8 = "CREATE TABLE IF NOT EXISTS `gyms` ( gymName VARCHAR(255) NOT NULL, address VARCHAR(255) PRIMARY KEY NOT NULL, lat DECIMAL(9,6) NOT NULL, lon DECIMAL(9,6) NOT NULL,rating DECIMAL(2,1) NOT NULL CHECK (rating >= 1 AND rating <= 5), lat_rounded DECIMAL(9,2) NOT NULL , lon_rounded DECIMAL(9,2) NOT NULL)";
+    const Q8 = "CREATE TABLE IF NOT EXISTS `gyms` ( gymName VARCHAR(255) NOT NULL, address VARCHAR(255) PRIMARY KEY NOT NULL, lat DECIMAL(9,6) NOT NULL, lon DECIMAL(9,6) NOT NULL,rating DECIMAL(2,1) NOT NULL CHECK (rating >= 1 AND rating <= 5), lat_rounded DECIMAL(9,2) NOT NULL , lon_rounded DECIMAL(9,2) NOT NULL, mapaddress VARCHAR(1000) NOT NULL)";
     sql.query(Q8, (err, mysqlres) => {
         if (err) {
             console.log(err);
@@ -66,7 +66,7 @@ const getGymsdistance = (lat, lon) => {
         var lati = lat;
         var loni = lon;
         const Q9 =
-            "SELECT gymName, address, rating, (6371 * acos(cos(radians(?)) * cos(radians(lat)) * cos(radians(lon) - radians(?)) + sin(radians(?)) * sin(radians(lat)))) AS distance FROM gyms ORDER BY distance LIMIT 3";
+            "SELECT gymName, address, mapaddress, rating, (6371 * acos(cos(radians(?)) * cos(radians(lat)) * cos(radians(lon) - radians(?)) + sin(radians(?)) * sin(radians(lat)))) AS distance FROM gyms ORDER BY distance LIMIT 3";
         sql.query(Q9, [lati, loni, lati], (err, results) => {
             if (err) {
                 console.error('Error executing SQL query:', err);
@@ -82,7 +82,7 @@ const getGymsrating = (lat, lon) => {
     return new Promise((resolve, reject) => {
         var lati = lat;
         var loni = lon;
-        const Q10 = `SELECT gymName, address, rating, (6371 * acos(cos(radians(?)) * cos(radians(lat_rounded)) * cos(radians(lon_rounded) - radians(?)) + sin(radians(?)) * sin(radians(lat_rounded)))) AS distance FROM gyms ORDER BY distance, rating DESC LIMIT 3`;
+        const Q10 = `SELECT gymName, address, mapaddress, rating, (6371 * acos(cos(radians(?)) * cos(radians(lat_rounded)) * cos(radians(lon_rounded) - radians(?)) + sin(radians(?)) * sin(radians(lat_rounded)))) AS distance FROM gyms ORDER BY distance, rating DESC LIMIT 3`;
         sql.query(Q10, [lati, loni, lati], (err, results) => {
             if (err) {
                 console.error('Error executing SQL query:', err);
@@ -106,6 +106,7 @@ const insertData = (req, res) => {
             const lon = Number(element.lon);
             const latRounded = Number(lat.toFixed(2));
             const lonRounded = Number(lon.toFixed(2));
+            const mapaddress = "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13642.30576274967!2d" + lon + "!3d" + lat + "!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1siw!2sil!4v1689628141257!5m2!1siw!2sil&amp;markers=" + lat + "," + lon;
             // console.log(element);
             const NewCsvData = {
                 gymName: element.gymName,
@@ -114,7 +115,8 @@ const insertData = (req, res) => {
                 lon: lon,
                 rating: element.rating,
                 lat_rounded: latRounded,
-                lon_rounded: lonRounded
+                lon_rounded: lonRounded,
+                mapaddress: mapaddress
             };
             const Q2 = "insert  IGNORE into gyms set ?";
             sql.query(Q2, NewCsvData, (err, mysqlres) => {

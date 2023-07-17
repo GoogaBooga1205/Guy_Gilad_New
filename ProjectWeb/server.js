@@ -71,24 +71,30 @@ app.get('/getgymsdistance', (req, res) => {
       const address1 = results[0].address;
       const distance1 = parseFloat(results[0].distance).toFixed(2);
       const rating1 = results[0].rating;
+      const mapaddress1 = results[0].mapaddress;
       const address2 = results[1].address;
       const distance2 = parseFloat(results[1].distance).toFixed(2);
       const rating2 = results[1].rating;
+      const mapaddress2 = results[1].mapaddress;
       const address3 = results[2].address;
       const distance3 = parseFloat(results[2].distance).toFixed(2);
       const rating3 = results[2].rating;
-
+      const mapaddress3 = results[2].mapaddress;
       const responseData = {
         address1,
         distance1,
         rating1,
+        mapaddress1,
         address2,
         distance2,
         rating2,
+        mapaddress2,
         address3,
         distance3,
-        rating3
+        rating3,
+        mapaddress3
       };
+      console.log(responseData);
       res.json(responseData);
     })
     .catch(err => {
@@ -105,23 +111,29 @@ app.get('/getgymsrating', (req, res) => {
       const address1 = results[0].address;
       const distance1 = parseFloat(results[0].distance).toFixed(2);
       const rating1 = results[0].rating;
+      const mapaddress1 = results[0].mapaddress1;
       const address2 = results[1].address;
       const distance2 = parseFloat(results[1].distance).toFixed(2);
       const rating2 = results[1].rating;
+      const mapaddress2 = results[1].mapaddress2;
       const address3 = results[2].address;
       const distance3 = parseFloat(results[2].distance).toFixed(2);
       const rating3 = results[2].rating;
+      const mapaddress3 = results[2].mapaddress3;
 
       const responseData = {
         address1,
         distance1,
         rating1,
+        mapaddress1,
         address2,
         distance2,
         rating2,
+        mapaddress2,
         address3,
         distance3,
-        rating3
+        rating3,
+        mapaddress3
       };
       res.json(responseData);
     })
