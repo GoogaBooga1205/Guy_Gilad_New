@@ -9,8 +9,7 @@ function checkIsActive() {
   var email = document.getElementById('email').value;
   var password = document.getElementById('password').value;
   var password2 = document.getElementById('password2').value;
-  if (!isNaN(nameUser) && !isNaN(email) && !isNaN(password) && !isNaN(password2)) {
-    // Send the form data to the server
+  if (nameUser !== "" && email !== "" && password !== "" && password2 !== "") {
     fetch("/signup", {
       method: "POST",
       body: JSON.stringify({

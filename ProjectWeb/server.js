@@ -3,7 +3,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cookie = require('cookie-parser');
 const sql = require('./DB/DB');
-const CRUD = require('./DB/CRUD')
+const CRUD = require('./DB/CRUD');
+const { accessSync } = require('fs');
 const app = express();
 const port = 3000;
 app.use(express.static(path.join(__dirname, 'static')));
@@ -162,6 +163,7 @@ app.post('/insertGyms', (req, res) => {
 app.post('/signup', (req, res) => {
   const { nameUser, email, password, password2 } = req.body;
   if (password == password2) {
+    console.log("in here");
     CRUD.checkUserExists(email, (err, userExists) => {
       if (err) {
         console.log(err);
@@ -169,8 +171,6 @@ app.post('/signup', (req, res) => {
         return;
       }
       if (userExists) {
-        res.cookie('signedEmail', email);
-        res.cookie('signedPassword', password);
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify({ Exists: true }))
         return;
@@ -182,6 +182,11 @@ app.post('/signup', (req, res) => {
         return;
       }
     });
+    return;
+  }
+  else {
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({ Exists: true }))
   }
 });
 
