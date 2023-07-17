@@ -1,25 +1,43 @@
 var signbutton = document.getElementById('signbutton');
-var closeBtn = document.querySelector('.close-btn');
-const CRUD = require('./DB/CRUD')
+const closeBtn = document.querySelector('.close-btn');
+const popup2 = document.getElementById('popup');
 
-if (signbutton) {
-  signbutton.addEventListener('click', function (event) {
-    event.preventDefault();
-    // Get the values from the form inputs
-    var nameUser = document.getElementById('nameUser').value;
-    var email = parseInt(document.getElementById('email').value);
-    var password = document.getElementById('password').value;
-    var password2 = document.getElementById('password2').value;
-
-    if (!(password == password2)) {
-
-      // Show validation error popup
-      popup.style.display = 'block';
-      closeBtn.addEventListener('click', function () {
-        popup.style.display = 'none';
+function checkIsActive() {
+  console.log("hi");
+  // Get the values from the form inputs
+  var nameUser = document.getElementById('nameUser').value;
+  var email = document.getElementById('email').value;
+  var password = document.getElementById('password').value;
+  var password2 = document.getElementById('password2').value;
+  if (!isNaN(nameUser) && !isNaN(email) && !isNaN(password) && !isNaN(password2)) {
+    // Send the form data to the server
+    fetch("/signup", {
+      method: "POST",
+      body: JSON.stringify({
+        "email": email,
+        "password": password,
+        "password2": password2,
+        "nameUser": nameUser
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        if (json["Exists"] == false) {
+          window.location.href = '/index';
+        } else if (json["Exists"] == true) {
+          popup2.style.display = 'block';
+          closeBtn.addEventListener('click', function () {
+            popup2.style.display = 'none';
+          });
+        }
       });
-    }
-  });
-}
-
-
+  } else {
+    popup2.style.display = 'block';
+    closeBtn.addEventListener('click', function () {
+      popup2.style.display = 'none';
+    });
+  }
+};

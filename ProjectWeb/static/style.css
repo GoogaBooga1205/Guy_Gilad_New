@@ -13,20 +13,6 @@
   }
 
   /*grids*/
-  .container {
-    display: grid;
-    gap: 10px;
-    align-items: center;
-    grid-template-areas:
-      'row1all row1all'
-      'row2all row2all'
-      'row3left row3right'
-      'row4left row4right'
-      'row5left row5right'
-      'row6all row6all'
-      'row7all row7all'
-      'row8all row8all';
-  }
 
   /*animation:*/
   .middle {
@@ -43,6 +29,7 @@
   .container {
     display: grid;
     gap: 10px;
+    justify-content: center;
     align-items: center;
     grid-template-areas:
       'row1all row1all'
@@ -139,20 +126,8 @@
     font-family: summeryNotes
   }
 
-  .row5right {
-    grid-area: row5right;
-    font-size: 150%;
-  }
 
-  .row5right button {
-    text-align: center;
-    font-size: 90%;
-    color: #025464;
-    background-color: rgb(255, 255, 255);
-    border-radius: 4px;
-    font-family: summeryNotes;
-    border-color: transparent;
-  }
+
 
   .row6all {
     grid-area: row6all;
@@ -183,13 +158,7 @@
     font-size: 320%;
   }
 
-  .row5right button:hover {
-    background-color: rgb(240, 239, 239);
-    outline: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    font-size: 100%;
-    border-color: transparent;
-  }
+
 
   .row8all {
     margin-top: 70px;
@@ -197,8 +166,7 @@
   }
 
   .row3right input,
-  .row4right input,
-  #address {
+  .row4right input {
     text-align: center;
     background-color: rgb(255, 255, 255);
     border: none;
@@ -212,9 +180,7 @@
   .row3right input:focus,
   .row3right input:hover,
   .row4right input:focus,
-  .row4right input:hover,
-  #address:focus,
-  #address:hover {
+  .row4right input:hover {
     outline: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     font-size: 68%;

@@ -2,28 +2,46 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
-
 var loginbutton = document.getElementById('button');
-var closeBtn = document.querySelector('.close-btn');
-
+console.log(popup2)
 app.set('views', path.join(__dirname, "views"));
+popup2.innerHTML = "test"
 
-loginbutton.addEventListener('click', function (event) {
-  event.preventDefault();
+
+function checkCreds() {
+  var closeBtn = document.getElementById("closeBtn")
+  var popup2 = document.getElementById('popup');
   // checks the values from the form inputs
-  var name = document.getElementById('name').value;
+  var name = document.getElementById('email').value;
   var password = document.getElementById('password').value;
+  fetch("/loginButton", {
+    method: "POST",
+    body: JSON.stringify({
+      "email": name,
+      "password": password,
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8"
+    }
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      if (json["Exists"] == false) {
+        console.log(popup2.innerHTML)
+        console.log(json["Exists"])
+        popup2.style.display = 'block';
+        closeBtn.addEventListener('click', function () {
+          popup2.style.display = 'none';
+        })
+      } else if (json["Exists"] == "Admin") {
+        window.location.href = '/indexAdmin';
+      } else if (json["Exists"] == true) {
+        window.location.href = '/index';
 
-  //now not neccery but next this will check if user is logged in
-  if (password == password) {
-    res.sendFile(path.join(__dirname, 'views', 'index.html'));
-    //+put data in database
-  }
-  else {
-    //button for the validation error popup
-    popup.style.display = 'block';
-    closeBtn.addEventListener('click', function () {
-      popup.style.display = 'none';
-    });
-  }
-});
+      }
+    }
+
+    );
+
+
+};
